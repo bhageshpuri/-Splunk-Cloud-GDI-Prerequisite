@@ -1,0 +1,17 @@
+resources:
+- name: qwiklabs
+  properties:
+    keyFile: '{"type":"service_account","project_id":"qwiklabs-gcp-03-9e837930160e","client_id":null,"private_key_id":null,"private_key":"-----BEGIN
+      PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQClsa5gJNbrgse8\njI7b2VbIxHSbDvdGKun0HfbXvAJlkvENAmv9ScbmREcdvY5a7qGsCeAuAdZtiUHv\niNaJG4WDhV2fGDHOtd1nGS0fYWxbB8rOC2KFWVvye3AYh/7Cmxm4UZ9JxbGii36n\nOqqCg3KuLnLDm1HuC9HMvFRFw3FQbZoR9Tgpxd7bhRcJQ2R2EIlCD0xVmsPKJiMj\nOpAYTRASIURMLqimDQjBzaKz4V5O9PYi6BMGoZKgwYR4AvyVNR756aMLeH9FyoYX\nvLs8xQKJ06pME6+G8JHD35XV+HigHg6nrLUIOw1J+zz027Yl2KNU3aelVUOFqOHQ\nIc9pS7tRAgMBAAECggEABUSXCE4/iYUSy901qQp5yoAJe4kQJkpUvhrKR21eL6PK\nd2kLbSYAdX93+dt2GFDEMduuBZRwIHMn1iFl/b2y4t21fmqG4d0xHPclUr02lFXU\n9jRRNW9j/5t6UsNXH5GOEajBrVckWMhB1ngEZgofFifapPquEgkM6msV7FJkisOm\nGuDtTGE3Ww0w8DPLrCSiJvrV4IjQHdl7dPwnaa9b5vQrgbsOPQ0aFNa4cL4se4Re\ng2v3LJ81DIrHuaPXfsLiX7E7boUC9KtIqsUtkzfHLGogDA6NDHDRvakcoyBR557I\n28UNF08KJfVgMrrJwd5P5o6TFNo4JLFVNjj/NjN8AQKBgQDpPv97ygEFi6U6ALo1\n9tGGMMdAGrTjI+IMbXlZo1n6L4Yotbgx0oQCDFm61i760EVt8Dt9agDF51pl7yqx\nBUkBySoZstwTc2OQZvUSNuXfCT0CiwSfudEgstk+tVqh4QhHaYucsJOJxQTR66xp\ne7JiuUFAlrV9Bdm1durdvfZ+AQKBgQC126n0LXRv3OJt7rDKICyXpArlIS5RO7dn\nY4fRUICwhAIOaFXg66qsoH+PCmuTnkeWG2zKnctlkM1ilGLComHE70+MFGIQe17b\nBc39x8RmDg8ckwTxfGMxjIUdD5MZk2ZBi8JK9rcD3Xt1kuKK5Ao8wPbb0QR+IOaT\nMXVOEYfdUQKBgHXxEBkVTSzzrwnEYmR1OP+E3MvydTNB6sTj+m+0JQRYUZt2P/yZ\neXzbp+fM9BaJiAIObtZ86oUn9lMC+/BlPsRzZyF1iskfGOJk3VlnfxcnwbzudNkb\nib7iEO4foAOpGZmaqikCNKh+gnBvnk/8Z3h6Op+hVYYxliOnTR3xN5oBAoGBAJCZ\nfwNmeSTRD0G1/uBYwNw6VWdnALsarnQI0d9/ETRJYpEuKMrU2Dq2y3ZjJLKVsfoL\nCG/7E9VIU+bEcdqs3uyGFEwfkPHmBsBEV0wo4WL8XsurosyYyQ6G2vkGf0Jgz3fi\ntrSAg3kRTK9qAbPKKtGv5RlXkyju5Ce5tbpDejJhAoGBAKNVvaLU7nQafy+yAbHw\nQTdmv2szPSWlqG0f+Sl518omYoq6uegncBggsrt4U31LhMRva+AuFIXoaxo3kLgu\nRxWVhAg8j156cIzRo5mjRnnqfqw/f6WcW6jDDmbExFjOc9HxUi8XqHM++4t6nlAh\nU6HIeEE9SDweukZq6BE+ZkhJ\n-----END
+      PRIVATE KEY-----\n","client_email":"qwiklabs-gcp-03-9e837930160e@qwiklabs-gcp-03-9e837930160e.iam.gserviceaccount.com"}'
+    qwiklabsUuid: 9b547886c090f15a
+    region: us-central1
+    zone: us-central1-f
+  resources:
+  - name: utility-vm
+    type: compute.v1.instance
+  - name: qwiklabs-gcp-03-9e837930160e-flights
+    type: storage.v1.bucket
+  - name: qwiklabs-gcp-03-9e837930160e-dashboard
+    type: storage.v1.bucket
+  type: qwiklabs.jinja

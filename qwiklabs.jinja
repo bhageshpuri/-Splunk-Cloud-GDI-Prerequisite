@@ -1,0 +1,52 @@
+{# Create whatever cloud deployment magic you want here.           #}
+{# See go/qwiklabs-deployment-manager for the available properties. #}
+resources:
+- type: compute.v1.instance
+  name: utility-vm
+  properties:
+    description: "Splunk Utility VM"
+    zone: {{ properties['zone'] }}
+    machineType: zones/{{ properties['zone'] }}/machineTypes/e2-standard-2
+    tags:
+      items: ["splunk-qwiklab"]
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+          sourceImage: https://www.googleapis.com/compute/v1/projects/qwiklabs-resources/global/images/splunk-vm-update
+    networkInterfaces:
+    - accessConfigs:
+      - kind: compute#accessConfig
+        name: external-nat
+        type: ONE_TO_ONE_NAT
+    metadata:
+      items:
+      - key: startup-script
+        value: |
+          #!/bin/bash
+          gsutil cp /home/splunk/flights.csv gs://{{ env['project'] }}-flights/
+          gsutil cp /home/splunk/SplunkExportDashboard.json gs://{{ env['project'] }}-dashboard/
+          if [[ $(gcloud services list | grep 'Dataflow API') ]] && [[ $(gcloud projects get-iam-policy {{ env['project'] }} | grep 'dataflow\.serviceAgent') ]]; then
+            echo "Service Account already exists!"
+          else
+            echo "Force restarting dataflow."
+            gcloud services disable dataflow.googleapis.com --force
+            gcloud services enable dataflow.googleapis.com
+          fi
+    serviceAccounts:
+    - email: default
+      scopes:
+        - https://www.googleapis.com/auth/cloud-platform
+  metadata:
+    dependsOn:
+    - {{ env['project'] }}-flights
+    - {{ env['project'] }}-dashboard
+
+- type: storage.v1.bucket
+  name: {{ env['project'] }}-flights
+
+- type: storage.v1.bucket
+  name: {{ env['project'] }}-dashboard
+

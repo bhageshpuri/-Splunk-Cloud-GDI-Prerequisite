@@ -1,0 +1,48 @@
+resources:
+- metadata:
+    dependsOn:
+    - qwiklabs-gcp-03-9e837930160e-flights
+    - qwiklabs-gcp-03-9e837930160e-dashboard
+  name: utility-vm
+  properties:
+    description: Splunk Utility VM
+    disks:
+    - autoDelete: true
+      boot: true
+      deviceName: boot
+      initializeParams:
+        sourceImage: https://www.googleapis.com/compute/v1/projects/qwiklabs-resources/global/images/splunk-vm-update
+      type: PERSISTENT
+    machineType: zones/us-central1-f/machineTypes/e2-standard-2
+    metadata:
+      items:
+      - key: startup-script
+        value: |
+          #!/bin/bash
+          gsutil cp /home/splunk/flights.csv gs://qwiklabs-gcp-03-9e837930160e-flights/
+          gsutil cp /home/splunk/SplunkExportDashboard.json gs://qwiklabs-gcp-03-9e837930160e-dashboard/
+          if [[ $(gcloud services list | grep 'Dataflow API') ]] && [[ $(gcloud projects get-iam-policy qwiklabs-gcp-03-9e837930160e | grep 'dataflow\.serviceAgent') ]]; then
+            echo "Service Account already exists!"
+          else
+            echo "Force restarting dataflow."
+            gcloud services disable dataflow.googleapis.com --force
+            gcloud services enable dataflow.googleapis.com
+          fi
+    networkInterfaces:
+    - accessConfigs:
+      - kind: compute#accessConfig
+        name: external-nat
+        type: ONE_TO_ONE_NAT
+    serviceAccounts:
+    - email: default
+      scopes:
+      - https://www.googleapis.com/auth/cloud-platform
+    tags:
+      items:
+      - splunk-qwiklab
+    zone: us-central1-f
+  type: compute.v1.instance
+- name: qwiklabs-gcp-03-9e837930160e-flights
+  type: storage.v1.bucket
+- name: qwiklabs-gcp-03-9e837930160e-dashboard
+  type: storage.v1.bucket
